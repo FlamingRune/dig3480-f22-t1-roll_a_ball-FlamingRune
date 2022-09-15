@@ -6,12 +6,15 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 0;
+     public float speed = 0;
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI livesText;
+    public GameObject loseTextObject;
     public GameObject winTextObject;
 
     private Rigidbody rb;
     private int count;
+    private int lives;
     private float movementX;
     private float movementY;
 
@@ -21,11 +24,18 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         count = 0;
 
+        rb = GetComponent<Rigidbody>();
+        lives = 3;
+
         SetCountText();
         winTextObject.SetActive(false);
+
+        SetCountText();
+        loseTextObject.SetActive(false);
+
     }
 
-    private void OnMove(InputValue movementValue)
+    void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
 
@@ -35,14 +45,22 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
+        // If player gets all 28 points, win text appears
         countText.text = "Count: " + count.ToString();
-        if(count >= 15)
+        if (count >= 28)
         {
             winTextObject.SetActive(true);
         }
-    }
 
-    private void FixedUpdate()
+        // If lives hit 0, Lose text appears and Player Object is destoryed
+        livesText.text = "Lives: " + lives.ToString();
+        if (lives == 0)
+        {
+            LoseTextObject.SetActive(true);
+            Destroy(gameObject);
+        }
+    }
+    void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
@@ -51,14 +69,33 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PickUp"))
+        // When collecting pickup item, count value goes up
+        if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
 
             SetCountText();
         }
-        
-    }
 
+        // when colliding with enemy, lives counted down
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            lives = lives - 1;
+
+            SetCountText();
+        }
+
+        // Teleportation to new levels
+        if (count == 12)
+        {
+            transform.position = new Vector3(50f, 0.5f, 50f);
+        }
+
+        if (count == 20)
+        {
+            transform.position = new Vector3(100f, 0.5f, 100f);
+        }
+    }
 }
