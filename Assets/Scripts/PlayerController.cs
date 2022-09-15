@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
             SetCountText();
         }
 
-        // when colliding with enemy, lives counted down
         if (other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.SetActive(false);
