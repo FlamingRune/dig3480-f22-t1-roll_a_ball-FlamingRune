@@ -67,8 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // When collecting pickup item, count value goes up
-        if (other.gameObject.CompareTag("Pickup"))
+        if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
