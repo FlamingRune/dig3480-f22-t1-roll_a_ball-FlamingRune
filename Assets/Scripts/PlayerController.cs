@@ -45,9 +45,8 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
-        // If player gets all 28 points, win text appears
         countText.text = "Count: " + count.ToString();
-        if (count >= 28)
+        if (count >= )
         {
             winTextObject.SetActive(true);
         }
