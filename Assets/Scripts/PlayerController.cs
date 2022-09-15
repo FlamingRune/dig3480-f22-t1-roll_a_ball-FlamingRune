@@ -46,12 +46,11 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if (count >= )
+        if (count >= 23)
         {
             winTextObject.SetActive(true);
         }
 
-        // If lives hit 0, Lose text appears and Player Object is destoryed
         livesText.text = "Lives: " + lives.ToString();
         if (lives == 0)
         {
