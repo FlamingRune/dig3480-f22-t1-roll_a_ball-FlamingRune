@@ -83,13 +83,12 @@ public class PlayerController : MonoBehaviour
             SetCountText();
         }
 
-        // Teleportation to new levels
-        if (count == 12)
+        if (count == 15)
         {
             transform.position = new Vector3(50f, 0.5f, 50f);
         }
 
-        if (count == 20)
+        if (count == 23)
         {
             transform.position = new Vector3(100f, 0.5f, 100f);
         }
